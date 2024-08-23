@@ -1,7 +1,9 @@
 agarre = 0;
 boton = false;
 
-estado = "proteccion";
+let drag = false;
+
+estado = "acoso";
 
 //let escudo = 100;
 //let tam = 70;
@@ -9,6 +11,7 @@ estado = "proteccion";
 
 function preload(){
   protector = loadSound("sonido/proteccion.mp3");
+  acosadores = loadSound("sonido/acoso.mp3");
 }
 
 function setup() {
@@ -18,6 +21,10 @@ function setup() {
   escudo = 100;
   tam = 70;
   tamProtagonista = 70;
+  pxProtagonista = width / 2;
+  pyProtagonista = height/ 2;
+  pxAcosador = width / 2;
+  pyAcosador = height/ 2;
 }
 
 function draw() {
@@ -29,18 +36,18 @@ function draw() {
   // Protagonista rojo
   fill(255,0,0);
 
-  ellipse(width/2 ,height/2 , tamProtagonista);
+  ellipse(pxProtagonista ,pyProtagonista , tamProtagonista);
   
   //Entorno verde
   fill(0,255,0);
-  ellipse((width/2) - escudo , height/2 - escudo , tam); //arriba izquierda
-  ellipse((width/2) , height/2 - escudo , tam);//centro arriba
-  ellipse((width/2) + escudo , height/2 - escudo , tam);//arriba derecha
-  ellipse((width/2) + escudo , height/2 , tam);//segunda fila der
-  ellipse((width/2) - escudo , height/2 , tam);//segunda fila iz
-  ellipse((width/2) - escudo , height/2 + escudo  , tam);//abajo iz
-  ellipse((width/2) , height/2 + escudo , tam);//centro abajo
-  ellipse((width/2) + escudo  , height/2 + escudo , tam);//abajo der
+  ellipse(pxAcosador - escudo , pyAcosador - escudo , tam); //arriba izquierda
+  ellipse(pxAcosador , pyAcosador - escudo , tam);//centro arriba
+  ellipse(pxAcosador + escudo , pyAcosador - escudo , tam);//arriba derecha
+  ellipse(pxAcosador + escudo , pyAcosador , tam);//segunda fila der
+  ellipse(pxAcosador - escudo , pyAcosador , tam);//segunda fila iz
+  ellipse(pxAcosador - escudo , pyAcosador + escudo  , tam);//abajo iz
+  ellipse(pxAcosador , pyAcosador + escudo , tam);//centro abajo
+  ellipse(pxAcosador + escudo  , pyAcosador + escudo , tam);//abajo der
 }
 
 
@@ -66,7 +73,7 @@ function Objeto(objX_, objY_, tamX_, tamY_, agarrado_) {
 function touchStarted() {
   if (estado == "proteccion") {
     //protagonista
-    Objeto(width/2 ,height/2 , tamProtagonista, tamProtagonista, 1);
+    Objeto(pxProtagonista ,pyProtagonista , tamProtagonista, tamProtagonista, 1);
     print (agarre)
   if (agarre == 1 && escudo == 100) {
     //desplazamos los circulos verdes
@@ -76,10 +83,30 @@ function touchStarted() {
   }
 }
 
+function touchMoved () {
+  drag = true;
+  if (touches.length ===1) {
+    if (estado == "acoso") {
+      Objeto(pxProtagonista ,pyProtagonista , tamProtagonista, tamProtagonista, 1);
+      if (agarre == 1 ) {
+        pxProtagonista = mouseX;
+        pyProtagonista = mouseY;
+      } else{
+        setup();
+    }
+	} 
+}
+}
+
 //Reiniciamos la grilla
 function touchEnded(){
+  drag = true;
   if (estado == "proteccion") {
   escudo = 100;
     agarre = 0;
+  } if (estado == "acoso"){
+    pxAcosador = this.pxProtagonista;
+    pyAcosador = this.pyProtagonista;
+    acosadores.play();
   }
 }
