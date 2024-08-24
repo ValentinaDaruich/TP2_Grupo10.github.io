@@ -31,7 +31,7 @@ function preload(){
   for(let i = 0; i< 9; i++){
     menu[i] = loadImage("img/btn-menu" + i + ".png");
   }
-  cerrar = loadImage("img/cerrar.png");
+  inicio = loadImage("img/inicio.png");
   siguiente = loadImage("img/flecha.png");
 }
 
@@ -49,9 +49,10 @@ function setup() {
   pyAcosador = height/ 2;
   columnas = 3;
   filas = 3;
-  tamXbtn = 100;
-  tamYbtn = 100;
-  calle = 150;
+  tamXbtn = 150;
+  tamYbtn = 150;
+  calle = 200;
+  tamIcono = 80;
   //tamGrillaBtn;
 }
 
@@ -81,6 +82,10 @@ function draw() {
       image(menu[i], x , y, tamXbtn, tamYbtn);
     }
   } */
+}
+if (estado == "empatia" || estado == "acoso" || estado == "desamparo" || estado == "soberbia" ||
+estado == "proteccion" || estado == "discriminación"|| estado == "desinteres" || estado == "desamparo" || estado == "mediacion") {
+  image(inicio,width - 100 , 100 , tamIcono, tamIcono); //btn para volver al menú
 }
   if (estado == "proteccion" || estado == "acoso" || estado == "soberbia") {
   // Protagonista rojo
@@ -178,18 +183,33 @@ function touchStarted() {
   } 
   }
   //Botones o áreas interactivas en el estado de cada concepto
+  if (estado == "acoso") {
+    Objeto(width - 100 , 100 , tamIcono, tamIcono, 3);
+    if (agarre == 3 ) {
+      estado = "menu"
+    }
+  }
   if (estado == "proteccion") {
     //protagonista
-    Objeto(pxProtagonista ,pyProtagonista , tamProtagonista, tamProtagonista, 1);
+     Objeto(pxProtagonista ,pyProtagonista , tamProtagonista, tamProtagonista, 1);
+     Objeto(width - 100 , 100 , tamIcono, tamIcono, 2);
     print (agarre)
-  if (agarre == 1 && escudo == 100) {
-    //desplazamos los circulos verdes
-    escudo = 70;
-    protector.play();
-  } 
+  if (agarre == 1 ){
+    if (escudo == 100) { 
+      //desplazamos los circulos verdes
+      this.escudo = 70;
+      protector.play();
+      print (escudo)
+  } else{
+    escudo = 100;
+  }
+  } if (agarre == 2 ) {
+    estado = "menu"
+  }
   } if (estado == "desamparo") {
     //protagonista
     Objeto(pxProtagonista ,pyProtagonista , tamProtagonista, tamProtagonista, 1);
+    Objeto(width - 100 , 100 , tamIcono, tamIcono, 2);
   if (agarre == 1 ) {
     if (tamProtagonista >= 30) {
       //Reducimos el tamaño del protagonista 10 pixeles con cada tap
@@ -205,10 +225,13 @@ function touchStarted() {
       tam = 70;
       tamProtagonista = 70;
     }
-  } 
+  } if (agarre == 2 ) {
+    estado = "menu"
+  }
   } if (estado == "soberbia") {
     //protagonista
     Objeto(pxProtagonista ,pyProtagonista , tamProtagonista, tamProtagonista, 1);
+    Objeto(width - 100 , 100 , tamIcono, tamIcono, 2);
   if (agarre == 1 ) {
     if (tamProtagonista <= 120) {
       //Aumentamos el tamaño 10 pixeles con cada tap
@@ -217,11 +240,11 @@ function touchStarted() {
     } else if (tamProtagonista >=120){
       tamProtagonista = 70;
     }
-  } 
+  } if (agarre == 2 ) {
+    estado = "menu"
   }
-   else {
-    setup();
   } 
+   
 } 
 
 function touchMoved () {
@@ -239,11 +262,12 @@ function touchMoved () {
 
 //Reiniciamos la grilla
 function touchEnded(){
-  drag = true;
+  //drag = false;
   agarre = 0;
   if (estado == "proteccion") {
     escudo = 100;
-  } if (estado == "acoso"){
+    print (escudo)
+  } if (estado == "acoso" ){
     pxAcosador = this.pxProtagonista;
     pyAcosador = this.pyProtagonista;
     acosadores.play();
