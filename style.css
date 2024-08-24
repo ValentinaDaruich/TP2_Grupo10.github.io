@@ -8,10 +8,10 @@ canvas {
   display: inline-flex;
   align-items: center;
 }
-.contenedor{
+/* .contenedor{
   margin: 100px;
 
-}
+} */
 .titulos{
   font-family: Roboto, sans-serif;
   margin-left: 600;
