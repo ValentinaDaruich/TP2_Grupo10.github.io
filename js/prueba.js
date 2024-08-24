@@ -150,7 +150,7 @@ function touchStarted() {
     //soberbia
     Objeto(pxAcosador - calle , pyAcosador , tamXbtn, tamYbtn, 4);
     //proteccion
-    Objeto(pxAcosador ,pyAcosador , tamXbtn, tamYbtn, 5);
+    Objeto(pxProtagonista ,pyProtagonista , tamXbtn, tamYbtn, 5);
     //discriminacion
     Objeto(pxProtagonista ,pyProtagonista , tamProtagonista, tamProtagonista, 6);
     //desinteres
@@ -190,7 +190,6 @@ function touchStarted() {
   } if (estado == "desamparo") {
     //protagonista
     Objeto(pxProtagonista ,pyProtagonista , tamProtagonista, tamProtagonista, 1);
-    print (agarre)
   if (agarre == 1 ) {
     if (tamProtagonista >= 30) {
       //Reducimos el tamaño del protagonista 10 pixeles con cada tap
@@ -198,10 +197,10 @@ function touchStarted() {
       tam +=25;//Aumentamos el tamaño del entorno
       salida += 50;
       sonidoSalida[pop].play();
-    } else if (salida <= 400){
+    } else if (salida <= 350){
       salida += 50;
       sonidoSalida[pop].play();
-    } else {
+    } if (salida >=350) {
       salida = 0;
       tam = 70;
       tamProtagonista = 70;
@@ -210,7 +209,6 @@ function touchStarted() {
   } if (estado == "soberbia") {
     //protagonista
     Objeto(pxProtagonista ,pyProtagonista , tamProtagonista, tamProtagonista, 1);
-    print (agarre)
   if (agarre == 1 ) {
     if (tamProtagonista <= 120) {
       //Aumentamos el tamaño 10 pixeles con cada tap
@@ -234,9 +232,7 @@ function touchMoved () {
       if (agarre == 1 ) {
         pxProtagonista = mouseX;
         pyProtagonista = mouseY;
-      } else{
-        setup();
-    }
+      }
 	} 
 }
 }
