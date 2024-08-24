@@ -52,6 +52,8 @@ function setup() {
   tamXbtn = 150;
   tamYbtn = 150;
   calle = 200;
+  pxmenu = width / 2;
+  pymenu = height/ 2;
   tamIcono = 80;
   //tamGrillaBtn;
 }
@@ -62,15 +64,15 @@ function draw() {
       this.agarrar = true;
     } 
     if (estado == "menu") {
-      image(menu[0],pxAcosador - calle , pyAcosador - calle , tamXbtn, tamYbtn); //arriba izquierda
-      image(menu[1],pxAcosador , pyAcosador - calle , tamXbtn, tamYbtn);//centro arriba
-      image(menu[2],pxAcosador + calle , pyAcosador - calle , tamXbtn, tamYbtn);//arriba derecha
-      image(menu[3],pxAcosador + calle , pyAcosador , tamXbtn, tamYbtn);//segunda fila der
-      image(menu[4],pxProtagonista ,pyProtagonista , tamXbtn, tamYbtn);// segunda fila centro
-      image(menu[5],pxAcosador - calle , pyAcosador , tamXbtn, tamYbtn);//segunda fila iz
-      image(menu[6],pxAcosador - calle , pyAcosador + calle  , tamXbtn, tamYbtn);//abajo iz
-      image(menu[7],pxAcosador , pyAcosador + calle , tamXbtn, tamYbtn);//centro abajo
-      image(menu[8],pxAcosador + calle  , pyAcosador + calle , tamXbtn, tamYbtn);//abajo der
+      image(menu[0],pxmenu - calle , pymenu - calle , tamXbtn, tamYbtn); //arriba izquierda
+      image(menu[1],pxmenu , pymenu - calle , tamXbtn, tamYbtn);//centro arriba
+      image(menu[2],pxmenu + calle , pymenu - calle , tamXbtn, tamYbtn);//arriba derecha
+      image(menu[3],pxmenu + calle , pymenu , tamXbtn, tamYbtn);//segunda fila der
+      image(menu[4],pxmenu ,pymenu , tamXbtn, tamYbtn);// segunda fila centro
+      image(menu[5],pxmenu - calle , pymenu , tamXbtn, tamYbtn);//segunda fila iz
+      image(menu[6],pxmenu - calle , pymenu + calle  , tamXbtn, tamYbtn);//abajo iz
+      image(menu[7],pxmenu , pymenu + calle , tamXbtn, tamYbtn);//centro abajo
+      image(menu[8],pxmenu + calle  , pymenu + calle , tamXbtn, tamYbtn);//abajo der
    /*   tamGrillaBtn = tamXbtn + calle;
       let startX = (width - tamGrillaBtn * (columnas - 1)) / 2;
       let startY = (height - tamGrillaBtn * (filas - 1)) / 2; 
@@ -226,7 +228,7 @@ function touchStarted() {
       tamProtagonista = 70;
     }
   } if (agarre == 2 ) {
-    estado = "menu"
+    estado = "menu" 
   }
   } if (estado == "soberbia") {
     //protagonista
