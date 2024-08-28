@@ -57,7 +57,7 @@ function preload(){
   verdesSound = loadSound('sonido/mediacion.mp3');
   rojosSound = loadSound('sonido/empatia3.mp3');
   sound = loadSound('sonido/empatia2.mp3');
-  desinterresSonido = loadSound('sonido/inflacion.mp3')
+  desinteresSonido = loadSound('sonido/inflacion.mp3')
   soundDiscriminacion = loadSound('sonido/denied.mp3');
   //Usamos un arreglo para cargar los sonidos de desamparo
   for(let i = 0; i< 5; i++){
@@ -201,8 +201,15 @@ function draw() {
     }
   } */
 }
-if (estado == "empatia" || estado == "acoso" || estado == "desamparo" || estado == "soberbia" ||
-estado == "proteccion" || estado == "discriminación"|| estado == "desinteres" || estado == "timidez" || estado == "mediacion") {
+if (estado == "empatia" || 
+  estado == "acoso" || 
+  estado == "desamparo" || 
+  estado == "soberbia" ||
+  estado == "proteccion" || 
+  estado == "discriminacion"|| 
+  estado == "desinteres" || 
+  estado == "timidez" || 
+  estado == "mediacion") {
   image(inicio,width - 100 , 100 , tamIcono, tamIcono); //btn para volver al menú
 }
   if (estado == "proteccion" || estado == "acoso" || estado == "soberbia") {
@@ -248,7 +255,6 @@ estado == "proteccion" || estado == "discriminación"|| estado == "desinteres" |
   ellipse(redCircle.x, redCircle.y, diameter);
   }
   if (estado == "mediacion") {
-    //verdesSound.play();
     // Dibujar los círculos
   for (let i = 0; i < cols; i++) {
     for (let j = 0; j < rows; j++) {
@@ -283,11 +289,11 @@ estado == "proteccion" || estado == "discriminación"|| estado == "desinteres" |
     }
   
     fill(redCircle.color);
-    ellipse(this.redCircle.x, this.redCircle.y, this.redCircle.diameter);
+    ellipse(redCircle.x, redCircle.y, redCircle.diameter);
   }
   if (estado == "desinteres") {
     // Dibujar los círculos verdes
-  for (let c of circles) {
+   for (let c of circles) {
     fill(c.color);
     ellipse(c.x, c.y, c.diameter);
   }
@@ -342,7 +348,7 @@ function touchStarted() {
     //discriminacion
     Objeto(this.pxmenu + this.calle , this.pymenu , this.tamXbtn, this.tamYbtn, 6);
     //desinteres
-    Objeto(this.pxmenu - this.calle , this.pymenu + this.calle, 7);
+    Objeto(pxmenu - calle , pymenu + calle, this.tamXbtn, this.tamYbtn , 7);
     //timidez
     Objeto(this.pxmenu , this.pymenu + this.calle , this.tamXbtn, this.tamYbtn, 8);
     //mediacion
@@ -475,8 +481,8 @@ function touchStarted() {
       }
     }
   } if (estado == "empatia") {
-    Objeto(width - 100 , 100 , tamIcono, tamIcono, 3);
-    if (agarre == 3 ) {
+    Objeto(width - 100 , 100 , tamIcono, tamIcono, 6);
+    if (agarre == 6 ) {
       estado = "menu";
     } 
     if (dist(touches[0].x, touches[0].y, redCircle.x, redCircle.y) < redCircle.diameter / 2) {
