@@ -51,6 +51,7 @@ let soundDiscriminacion;
 function preload(){
   protector = loadSound("sonido/proteccion.mp3");
   acosadores = loadSound("sonido/acoso.mp3");
+  ambienteAcoso = loadSound("sonido/ambienteAcoso.mp3");
   soberbio = loadSound("sonido/soberbio.mp3");
   redSound = loadSound('sonido/timido.mp3');
   greenSound = loadSound('sonido/timidez.mp3');
@@ -107,6 +108,15 @@ function setup() {
     }
   }
   //mediación
+  centersMediacion = [width / 3, width / 2, width * 2 / 3];
+  
+  for (let i = 0; i < cols; i++) {
+    positions[i] = centersMediacion[i];
+    targets[i] = centersMediacion[i];
+    if (i != middleCol) {
+      speed[i] = random(5,10);
+    }
+  }
   if (estado == "mediacion"){
     verdesSound.play();
     
@@ -156,8 +166,7 @@ function setup() {
     }
   }
   //discriminacion
-  //if (estado == "discriminacion") {
-    let offsetX = (width - (cols * circleSize + (cols - 1) * spacing)) / 2;
+  let offsetX = (width - (cols * circleSize + (cols - 1) * spacing)) / 2;
   let offsetY = (height - (rows * circleSize + (rows - 1) * spacing)) / 2;
 
   // Crear la grilla de círculos
@@ -171,7 +180,6 @@ function setup() {
   }
 
   grid[0].isRed = true;  // Primer círculo en rojo
-  //}
 }
 
 function draw() {
@@ -189,17 +197,6 @@ function draw() {
       image(menu[6],pxmenu - calle , pymenu + calle  , tamXbtn, tamYbtn);//abajo iz
       image(menu[7],pxmenu , pymenu + calle , tamXbtn, tamYbtn);//centro abajo
       image(menu[8],pxmenu + calle  , pymenu + calle , tamXbtn, tamYbtn);//abajo der
-   /*   tamGrillaBtn = tamXbtn + calle;
-      let startX = (width - tamGrillaBtn * (columnas - 1)) / 2;
-      let startY = (height - tamGrillaBtn * (filas - 1)) / 2; 
-  
-   for (let i = 0; i < filas; i++) {
-    for (let j = 0; j < columnas; j++) {
-      let x = startX + i * tamGrillaBtn;
-      let y = startY + j * tamGrillaBtn;
-      image(menu[i], x , y, tamXbtn, tamYbtn);
-    }
-  } */
 }
 if (estado == "empatia" || 
   estado == "acoso" || 
@@ -227,6 +224,8 @@ if (estado == "empatia" ||
   ellipse(pxAcosador - escudo , pyAcosador + escudo  , tam);//abajo iz
   ellipse(pxAcosador , pyAcosador + escudo , tam);//centro abajo
   ellipse(pxAcosador + escudo  , pyAcosador + escudo , tam);//abajo der
+
+  
 }
   if (estado == "desamparo") {
     // Protagonista rojo
@@ -270,8 +269,7 @@ if (estado == "empatia" ||
       ellipse(x, y, diameter);
   
     }
-  }
-  
+  } 
   // Mover las columnas de los extremos
   for (let i = 0; i < cols; i++) {
     if (i != middleCol) {
@@ -360,6 +358,7 @@ function touchStarted() {
   } 
   if (agarre == 2 ) {
     estado = "acoso";
+    ambienteAcoso.loop();
   }
   if (agarre == 3 ) {
     estado = "desamparo";
@@ -388,19 +387,18 @@ function touchStarted() {
     Objeto(width - 100 , 100 , tamIcono, tamIcono, 3);
     if (agarre == 3 ) {
       estado = "menu"
+      ambienteAcoso.stop();
     }
   }
   if (estado == "proteccion") {
     //protagonista
      Objeto(pxProtagonista ,pyProtagonista , tamProtagonista, tamProtagonista, 1);
      Objeto(width - 100 , 100 , tamIcono, tamIcono, 2);
-    print (agarre)
   if (agarre == 1 ){
     if (escudo == 100) { 
       //desplazamos los circulos verdes
       this.escudo = 70;
       protector.play();
-      print (escudo)
   } else{
     escudo = 100;
   }
@@ -470,20 +468,14 @@ function touchStarted() {
       estado = "menu"
     }
     if (mouseX > width / 3 && mouseX < width * 2 / 3) {
-      for (let i = 0; i < cols; i++) {
-        if (i != middleCol) {
-          positions[i] = centers[i];
-          speed[i] = 0;
-          rojosSound.play();
+          rojosSound.loop();
           verdesSound.stop();
-         
         }
-      }
-    }
   } if (estado == "empatia") {
     Objeto(width - 100 , 100 , tamIcono, tamIcono, 6);
     if (agarre == 6 ) {
       estado = "menu";
+      //setup();
     } 
     if (dist(touches[0].x, touches[0].y, redCircle.x, redCircle.y) < redCircle.diameter / 2) {
       draggingCircle = redCircle;
@@ -565,7 +557,14 @@ function touchMoved () {
       greenSound.play();
     }
     return false;
-  } if (estado == "empatia") {
+  } if (estado == "mediacion") {
+    for (let i = 0; i < cols; i++) {
+      if (i != middleCol) {
+        positions[i] = centersMediacion[i];
+        speed[i] = 0;
+      }
+  }
+ } if (estado == "empatia") {
     if (draggingCircle) {
       let newX = touches[0].x;
       let newY = touches[0].y;
@@ -609,7 +608,7 @@ function touchEnded(){
   agarre = 0;
   if (estado == "proteccion") {
     escudo = 100;
-    print (escudo)
+    //print (escudo)
   } if (estado == "acoso" ){
     pxAcosador = this.pxProtagonista;
     pyAcosador = this.pyProtagonista;
@@ -626,6 +625,7 @@ function touchEnded(){
     return false;
     
   } if (estado == "mediacion") {
+    rojosSound.stop();
     setup();
   } if (estado == "empatia") {
     if (draggingCircle) {
