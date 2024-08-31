@@ -57,9 +57,12 @@ function preload(){
   greenSound = loadSound('sonido/timidez.mp3');
   verdesSound = loadSound('sonido/mediacion.mp3');
   rojosSound = loadSound('sonido/empatia3.mp3');
+  ambienteEmp = loadSound("sonido/empatiaAmbiente.mp3");
   sound = loadSound('sonido/empatia2.mp3');
   desinteresSonido = loadSound('sonido/inflacion.mp3')
+  ambienteTimidez = loadSound("sonido/timidezAmbiente.mp3");
   soundDiscriminacion = loadSound('sonido/denied.mp3');
+  ambienteDes = loadSound("sonido/desamparoAmbiente.mp3");
   //Usamos un arreglo para cargar los sonidos de desamparo
   for(let i = 0; i< 5; i++){
     sonidoSalida[i] = loadSound("sonido/desamparo0" + i + ".mp3");
@@ -355,6 +358,7 @@ function touchStarted() {
   if (agarre == 1 ) {
     //cargamos el estado
     estado = "empatia";
+    ambienteEmp.loop();
   } 
   if (agarre == 2 ) {
     estado = "acoso";
@@ -362,6 +366,7 @@ function touchStarted() {
   }
   if (agarre == 3 ) {
     estado = "desamparo";
+    ambienteDes.loop();
   }  
   if (agarre == 4 ) {
     estado = "soberbia";
@@ -377,6 +382,7 @@ function touchStarted() {
   } 
   if (agarre == 8 ) {
     estado = "timidez";
+    ambienteTimidez.loop();
   } 
   if (agarre == 9 ) {
     estado = "mediacion";
@@ -416,16 +422,17 @@ function touchStarted() {
       tam +=25;//Aumentamos el tamaño del entorno
       salida += 50;
       sonidoSalida[pop].play();
-    } else if (salida <= 350){
+    } else if (salida <= 330){
       salida += 50;
       sonidoSalida[pop].play();
-    } if (salida >=350) {
+    } if (salida >=330) {
       salida = 0;
       tam = 70;
       tamProtagonista = 70;
     }
   } if (agarre == 2 ) {
     estado = "menu" 
+    ambienteDes.stop();
   }
   } if (estado == "soberbia") {
     //protagonista
@@ -446,6 +453,7 @@ function touchStarted() {
     Objeto(width - 100 , 100 , tamIcono, tamIcono, 2);
     if (agarre == 2 ) {
       estado = "menu"
+      ambienteTimidez.stop();
     }
     for (let circle of greenCircles) {
       if (dist(touches[0].x, touches[0].y, circle.x, circle.y) < diameter / 2) {
@@ -475,6 +483,7 @@ function touchStarted() {
     Objeto(width - 100 , 100 , tamIcono, tamIcono, 6);
     if (agarre == 6 ) {
       estado = "menu";
+      ambienteEmp.stop();
       //setup();
     } 
     if (dist(touches[0].x, touches[0].y, redCircle.x, redCircle.y) < redCircle.diameter / 2) {
