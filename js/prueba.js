@@ -510,6 +510,7 @@ function touchStarted() {
     Objeto(width - 100 , 100 , tamIcono, tamIcono, 6);
     if (agarre == 6 ) {
       estado = "menu";
+      ambienteEmp.stop();
     } 
     if (dist(touches[0].x, touches[0].y, redCircle.x, redCircle.y) < redCircle.diameter / 2) {
       draggingCircle = redCircle;
