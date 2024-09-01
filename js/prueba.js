@@ -29,6 +29,7 @@ let greenCircles = [];
 let redCircle;
 let dragging = false;
 let redSound, greenSound;
+let ambienteProteccion;
 //mediación
 let speed = [];
 let positions = [];
@@ -43,16 +44,22 @@ let sound;
 //desinteres
 let maxDiameter = 120;
 let desinteresSonido;
+let ambienteDesinteres;
 //discriminacion
 let grid = [];
 let circleSize = 70;
 let soundDiscriminacion;
+let ambienteDiscriminacion;
+//soberbia
+let ambienteSoberbia;
 
 function preload(){
   protector = loadSound("sonido/proteccion.mp3");
   acosadores = loadSound("sonido/acoso.mp3");
+  ambienteProteccion = loadSound ("sonido/proteccion_fondo.mp3");
   ambienteAcoso = loadSound("sonido/ambienteAcoso.mp3");
   soberbio = loadSound("sonido/soberbio.mp3");
+  ambienteSoberbia = loadSound ("soberbia_fondo.mp3");
   redSound = loadSound('sonido/timido.mp3');
   greenSound = loadSound('sonido/timidez.mp3');
   verdesSound = loadSound('sonido/mediacion.mp3');
@@ -372,9 +379,11 @@ function touchStarted() {
   }  
   if (agarre == 4 ) {
     estado = "soberbia";
+   ambienteSoberbia.loop();
   } 
   if (agarre == 5 ) {
     estado = "proteccion";
+    ambienteProteccion.loop();
   } 
   if (agarre == 6 ) {
     estado = "discriminacion";
@@ -413,7 +422,8 @@ function touchStarted() {
     escudo = 100;
   }
   } if (agarre == 2 ) {
-    estado = "menu"
+    estado = "menu";
+   ambienteProteccion.stop();
   }
   } if (estado == "desamparo") {
     //protagonista
@@ -451,7 +461,8 @@ function touchStarted() {
       tamProtagonista = 70;
     }
   } if (agarre == 2 ) {
-    estado = "menu"
+    estado = "menu";
+    ambienteSoberbia.stop();
   }
   } if (estado == "timidez") {
     Objeto(width - 100 , 100 , tamIcono, tamIcono, 2);
