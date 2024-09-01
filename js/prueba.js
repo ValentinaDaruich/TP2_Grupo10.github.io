@@ -358,7 +358,7 @@ function touchStarted() {
     //discriminacion
     Objeto(this.pxmenu + this.calle , this.pymenu , this.tamXbtn, this.tamYbtn, 6);
     //desinteres
-    Objeto(pxmenu - calle , pymenu + calle, this.tamXbtn, this.tamYbtn , 7);
+    Objeto(this.pxmenu - this.calle , this.pymenu + this.calle, this.tamXbtn, this.tamYbtn , 7);
     //timidez
     Objeto(this.pxmenu , this.pymenu + this.calle , this.tamXbtn, this.tamYbtn, 8);
     //mediacion
@@ -392,6 +392,10 @@ function touchStarted() {
   if (agarre == 7 ) {
     estado = "desinteres";
     ambienteDesinteres.loop();
+
+  } 
+  if (agarre == 7 ) {
+    estado = "desinteres";
   } 
   if (agarre == 8 ) {
     estado = "timidez";
@@ -407,6 +411,10 @@ function touchStarted() {
     if (agarre == 3 ) {
       estado = "menu"
       ambienteAcoso.stop();
+      pxProtagonista = width / 2;
+      pyProtagonista = height/ 2;
+      pxAcosador = width / 2;
+      pyAcosador = height/ 2;
     }
   }
   if (estado == "proteccion") {
@@ -447,6 +455,10 @@ function touchStarted() {
   } if (agarre == 2 ) {
     estado = "menu" 
     ambienteDes.stop();
+    tam = 70;
+    pxAcosador = width / 2;
+    pyAcosador = height/ 2;
+    salida = 0;
   }
   } if (estado == "soberbia") {
     //protagonista
@@ -498,8 +510,6 @@ function touchStarted() {
     Objeto(width - 100 , 100 , tamIcono, tamIcono, 6);
     if (agarre == 6 ) {
       estado = "menu";
-      ambienteEmp.stop();
-      //setup();
     } 
     if (dist(touches[0].x, touches[0].y, redCircle.x, redCircle.y) < redCircle.diameter / 2) {
       draggingCircle = redCircle;
@@ -517,6 +527,7 @@ function touchStarted() {
     if (agarre == 3 ) {
       estado = "menu";
       ambienteDesinteres.stop();
+
     } 
     for (let c of circles) {
       if (dist(mouseX, mouseY, c.x, c.y) < c.diameter / 2) {
@@ -524,14 +535,18 @@ function touchStarted() {
         if (c.diameter < maxDiameter) {
           c.diameter += 10;
           desinteresSonido.play();
-        }
+        } 
+      }if (agarre == 3) {
+        c.diameter = 70;
       }
     }
+    
   } if (estado == "discriminacion") {
     Objeto(width - 100 , 100 , tamIcono, tamIcono, 2);
     if (agarre == 2 ) {
       estado = "menu";
       ambienteDiscriminacion.stop();
+
     }
     let target = grid[8];  // Círculo en la posición (3,3)
   let moveStep = 5;      // Paso de movimiento
