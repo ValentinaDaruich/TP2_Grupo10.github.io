@@ -60,10 +60,10 @@ function preload(){
   ambienteEmp = loadSound("sonido/empatiaAmbiente.mp3");
   sound = loadSound('sonido/empatia2.mp3');
   desinteresSonido = loadSound('sonido/inflacion.mp3');
-	AmbienteDesinteres = loadSound('sonido/desinteres-luz.mp3');
+  AmbienteDesinteres = loadSound('sonido/desinteres-luz.mp3');
   ambienteTimidez = loadSound("sonido/timidezAmbiente.mp3");
   soundDiscriminacion = loadSound('sonido/denied.mp3');
-	AmbienteDiscriminacion = loadSound('sonido/discriminacionfondo2.mp3');
+  AmbienteDiscriminacion = loadSound('sonido/discriminacionfondo2.mp3');
   ambienteDes = loadSound("sonido/desamparoAmbiente.mp3");
   //Usamos un arreglo para cargar los sonidos de desamparo
   for(let i = 0; i< 5; i++){
@@ -378,11 +378,11 @@ function touchStarted() {
   } 
   if (agarre == 6 ) {
     estado = "discriminacion";
-	  AmbienteDiscriminacion.loop();
+    AmbienteDiscriminacion.loop();
   } 
   if (agarre == 7 ) {
     estado = "desinteres";
-	  AmbienteDesinteres.loop();
+    AmbienteDesinteres.loop();
   } 
   if (agarre == 8 ) {
     estado = "timidez";
