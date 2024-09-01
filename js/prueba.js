@@ -29,6 +29,7 @@ let greenCircles = [];
 let redCircle;
 let dragging = false;
 let redSound, greenSound;
+let ambienteProteccion;
 //mediación
 let speed = [];
 let positions = [];
@@ -43,25 +44,33 @@ let sound;
 //desinteres
 let maxDiameter = 120;
 let desinteresSonido;
+let ambienteDesinteres;
 //discriminacion
 let grid = [];
 let circleSize = 70;
 let soundDiscriminacion;
+let ambienteDiscriminacion;
+//soberbia
+let ambienteSoberbia;
 
 function preload(){
   protector = loadSound("sonido/proteccion.mp3");
   acosadores = loadSound("sonido/acoso.mp3");
+  ambienteProteccion = loadSound ("sonido/proteccion_fondo.mp3");
   ambienteAcoso = loadSound("sonido/ambienteAcoso.mp3");
   soberbio = loadSound("sonido/soberbio.mp3");
+  ambienteSoberbia = loadSound ("soberbia_fondo.mp3");
   redSound = loadSound('sonido/timido.mp3');
   greenSound = loadSound('sonido/timidez.mp3');
   verdesSound = loadSound('sonido/mediacion.mp3');
   rojosSound = loadSound('sonido/empatia3.mp3');
   ambienteEmp = loadSound("sonido/empatiaAmbiente.mp3");
   sound = loadSound('sonido/empatia2.mp3');
-  desinteresSonido = loadSound('sonido/inflacion.mp3')
+  desinteresSonido = loadSound('sonido/inflacion.mp3');
+  ambienteDesinteres = loadSound('sonido/desinteres-luz.mp3');
   ambienteTimidez = loadSound("sonido/timidezAmbiente.mp3");
   soundDiscriminacion = loadSound('sonido/denied.mp3');
+  ambienteDiscriminacion = loadSound('sonido/discriminacionfondo2.mp3');
   ambienteDes = loadSound("sonido/desamparoAmbiente.mp3");
   //Usamos un arreglo para cargar los sonidos de desamparo
   for(let i = 0; i< 5; i++){
@@ -370,15 +379,19 @@ function touchStarted() {
   }  
   if (agarre == 4 ) {
     estado = "soberbia";
+   ambienteSoberbia.loop();
   } 
   if (agarre == 5 ) {
     estado = "proteccion";
+    ambienteProteccion.loop();
   } 
   if (agarre == 6 ) {
     estado = "discriminacion";
+    ambienteDiscriminacion.loop();
   } 
   if (agarre == 7 ) {
     estado = "desinteres";
+    ambienteDesinteres.loop();
   } 
   if (agarre == 8 ) {
     estado = "timidez";
@@ -409,7 +422,8 @@ function touchStarted() {
     escudo = 100;
   }
   } if (agarre == 2 ) {
-    estado = "menu"
+    estado = "menu";
+   ambienteProteccion.stop();
   }
   } if (estado == "desamparo") {
     //protagonista
@@ -447,7 +461,8 @@ function touchStarted() {
       tamProtagonista = 70;
     }
   } if (agarre == 2 ) {
-    estado = "menu"
+    estado = "menu";
+    ambienteSoberbia.stop();
   }
   } if (estado == "timidez") {
     Objeto(width - 100 , 100 , tamIcono, tamIcono, 2);
@@ -501,6 +516,7 @@ function touchStarted() {
     Objeto(width - 100 , 100 , tamIcono, tamIcono, 3);
     if (agarre == 3 ) {
       estado = "menu";
+      ambienteDesinteres.stop();
     } 
     for (let c of circles) {
       if (dist(mouseX, mouseY, c.x, c.y) < c.diameter / 2) {
@@ -514,7 +530,8 @@ function touchStarted() {
   } if (estado == "discriminacion") {
     Objeto(width - 100 , 100 , tamIcono, tamIcono, 2);
     if (agarre == 2 ) {
-      estado = "menu"
+      estado = "menu";
+      ambienteDiscriminacion.stop();
     }
     let target = grid[8];  // Círculo en la posición (3,3)
   let moveStep = 5;      // Paso de movimiento
