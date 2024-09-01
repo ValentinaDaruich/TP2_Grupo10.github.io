@@ -59,7 +59,7 @@ function preload(){
   ambienteProteccion = loadSound ("sonido/proteccion_fondo.mp3");
   ambienteAcoso = loadSound("sonido/ambienteAcoso.mp3");
   soberbio = loadSound("sonido/soberbio.mp3");
-  ambienteSoberbia = loadSound ("soberbia_fondo.mp3");
+  ambienteSoberbia = loadSound ("sonido/soberbia_fondo.mp3");
   redSound = loadSound('sonido/timido.mp3');
   greenSound = loadSound('sonido/timidez.mp3');
   verdesSound = loadSound('sonido/mediacion.mp3');
