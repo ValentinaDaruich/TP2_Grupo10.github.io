@@ -505,6 +505,7 @@ function touchStarted() {
     Objeto(width - 100 , 100 , tamIcono, tamIcono, 3);
     if (agarre == 3 ) {
       estado = "menu";
+      ambienteDesinteres.stop();
     } 
     for (let c of circles) {
       if (dist(mouseX, mouseY, c.x, c.y) < c.diameter / 2) {
@@ -518,7 +519,8 @@ function touchStarted() {
   } if (estado == "discriminacion") {
     Objeto(width - 100 , 100 , tamIcono, tamIcono, 2);
     if (agarre == 2 ) {
-      estado = "menu"
+      estado = "menu";
+      ambienteDiscriminacion.stop();
     }
     let target = grid[8];  // Círculo en la posición (3,3)
   let moveStep = 5;      // Paso de movimiento
